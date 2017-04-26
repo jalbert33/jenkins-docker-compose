@@ -29,6 +29,7 @@ exit
 docker-compose --version
 
 # clone du docker-compose.yml
+git clone https://github.com/jalbert33/jenkins-docker-compose.git
 docker-compose up -d
 
 sudo chown -R 1000:1000 ~/formation/env/pic
