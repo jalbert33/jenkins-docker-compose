@@ -1,0 +1,44 @@
+#gitlab:
+#  image: gitlab/gitlab-ce:9.0.2-ce.0
+#  ports:
+#    - "80:80"
+#    - "443:443"
+#    - "10022:22"
+#  restart: always
+#  environment:
+#    GITLAB_OMNIBUS_CONFIG: |
+#      gitlab_rails['gitlab_shell_ssh_port'] = 10022
+#      # external_url 'https://gitlab.example.com'
+#      # Add any other gitlab.rb configuration here, each on its own line
+#  volumes:
+#    - ~/formation/env/pic/volumes/gitlab/config:/etc/gitlab
+#    - ~/formation/env/pic/volumes/gitlab/data:/var/opt/gitlab
+#    #- $PWD/data/gitlab:/var/opt/gitlab
+#    - ~/formation/env/pic/volumes/gitlab/logs:/var/log/gitlab
+sonar:
+  image: sonarqube:6.3-alpine
+  ports:
+    - "9000:9000"
+    - "9092:9092"
+  volumes:
+    - ~/formation/env/pic/volumes/sonar/data:/opt/sonarqube/data
+    - ~/formation/env/pic/volumes/sonar/extensions:/opt/sonarqube/extensions
+#nexus:
+#    image: sonatype/nexus3:3.2.1
+#    ports:
+#      - "8081:8081"
+#    volumes:
+#      - ~/formation/env/pic/volumes/nexus:/nexus-data
+#    logging:
+#	driver: none
+jenkins:
+  image: jenkins:2.46.1-alpine
+  ports:
+    - "8082:8080"
+    - "5000:5000"
+  volumes:
+    - ~/formation/env/pic/volumes/jenkins_home:/var/jenkins_home
+  links:
+#    - gitlab
+    - sonar
+#    - nexus
